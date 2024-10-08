@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Auth\ForgetPasswordController;
+use App\Http\Controllers\Auth\ResetPasswordController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\VerfiyController;
@@ -34,7 +36,11 @@ Route::post('/verify/send', [VerfiyController::class, 'verifySend'])->name('veri
 Route::get('/login', [LoginController::class, 'loginPage'])->name('login');
 Route::post('/login/store', [LoginController::class, 'loginStore'])->name('login.store');
 Route::get('/logouts', [LoginController::class, 'logouts'])->name('logouts');
-
+// forget and reset password route
+Route::get('/forget-password', [ForgetPasswordController::class, 'forgetPassword'])->name('forget.password');
+Route::post('/forget-password', [ForgetPasswordController::class, 'sendEmail'])->name('forget.password.send');
+Route::get('/reset-password', [ResetPasswordController::class, 'resetPassword'])->name('reset.password');
+Route::post('/reset-password', [ResetPasswordController::class, 'resetPasswordStore'])->name('reset.password.store');
 
 // admin panel start
 Route::controller(DashboardController::class)->group(function () {
